@@ -1,7 +1,7 @@
 name: 'OSU Default Content'
 type: module
 description: 'Default content for OSU distributions'
-package: Web services
+package: OSU
 core_version_requirement: ^9 || ^10
 dependencies:
   - default_content:default_content
