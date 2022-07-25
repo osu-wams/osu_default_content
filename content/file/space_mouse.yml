@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: b9b23981-a14a-4daf-b1fd-0ef0ad51fbee
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: SPACE_MOUSE.jpeg
+  uri:
+    -
+      value: 'public://2022-07/SPACE_MOUSE.jpeg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 110252
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1658789022
