@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Example of adding new default content in an update
+ * Must use patch https://www.drupal.org/project/default_content/issues/2698425
+ */
+function osu_default_content_update_9001(&$sandbox) {
+  // Rerun default_content importer
+  // Patch prevents previously imported content from being imported again
+  \Drupal::service('default_content.importer')->importContent('osu_default_content');
+}
