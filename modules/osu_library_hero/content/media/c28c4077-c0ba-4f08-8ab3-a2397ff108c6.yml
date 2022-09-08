@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c28c4077-c0ba-4f08-8ab3-a2397ff108c6
+  bundle: image
+  default_langcode: en
+  depends:
+    cd946bf6-6ae2-4ce6-b735-3747788a475e: file
+default:
+  status:
+    - value: true
+  uid:
+    - entity: 1
+  name:
+    - value: 5n4a5336-1920x1280.webp
+  created:
+    - value: 1662074009
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    - entity: cd946bf6-6ae2-4ce6-b735-3747788a475e
+      alt: ''
+      title: 5n4a5336-1920x1280.webp
+      width: 1620
+      height: 1080

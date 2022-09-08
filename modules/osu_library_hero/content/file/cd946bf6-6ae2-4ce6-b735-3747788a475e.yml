@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: cd946bf6-6ae2-4ce6-b735-3747788a475e
+  default_langcode: en
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: 5n4a5336-1920x1280.webp
+  uri:
+    - value: 'public://2022-09/5n4a5336-1920x1280.webp'
+  filemime:
+    - value: image/webp
+  filesize:
+    - value: 307364
+  status:
+    - value: true
+  created:
+    - value: 1662074034
