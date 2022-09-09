@@ -20,6 +20,7 @@ function osu_library_hero_modules_installed($modules, $is_syncing) {
     /** @var \Drupal\media\Entity\Media $media_item */
     $media_item = reset($media_item_arr);
     $media_id = $media_item->get('mid')->first()->getValue()['value'];
+
     /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $section_storage */
     $section_storage = \Drupal::entityTypeManager()
       ->getStorage('section_library_template');
@@ -32,6 +33,7 @@ function osu_library_hero_modules_installed($modules, $is_syncing) {
     /** @var \Drupal\layout_builder\Section $layout_section */
     $layout_section = $layouts->getValue()['section'];
     $layout_section_settings = $layout_section->getLayoutSettings();
+
     $layout_section_settings['container_wrapper']['bootstrap_styles']['background_media']['image']['media_id'] = $media_id;
     $layout_section->setLayoutSettings($layout_section_settings);
     $hero_section->set('layout_section', $layout_section);
