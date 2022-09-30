@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Once the Default content is imported we need to update the media_id for the
+ * background image. This hook is called after every module is installed.
+ * By checking for the module type and to ensure we are not in configuration
+ * import step:
+ *   - Load the media entity by UUID and get its ID.
+ *   - Load the section library by UUID and update its settings by setting
+ *     the media_id and save it back to the database.
+ */
+function osu_library_two_column_25_75_modules_installed($modules, $is_syncing) {
+  if (in_array('osu_library_two_column_25_75', $modules) && !$is_syncing) {
+    /** @var \Drupal\media\MediaStorage $media_storage */
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    /** @var array $media_item_arr */
+    $media_item_arr = $media_storage->loadByProperties(['uuid' => '2b1ba5e1-cb37-4ea1-bd50-bc6258d4f715']);
+    /** @var \Drupal\media\Entity\Media $media_item */
+    $media_item = reset($media_item_arr);
+    $media_id = $media_item->get('mid')->first()->getValue()['value'];
+
+    /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $section_storage */
+    $section_storage = \Drupal::entityTypeManager()->getStorage('section_library_template');
+    /** @var array $two_col_section_arr */
+    $two_col_section_arr = $section_storage->loadByProperties(['uuid' => 'f5f32813-2eb8-49ac-b5d6-df111babdb7c']);
+    /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $two_col_section */
+    $two_col_section = reset($two_col_section_arr);
+    /** @var Drupal\layout_builder\Plugin\Field\FieldType\LayoutSectionItem $layouts */
+    $layouts = $two_col_section->get('layout_section')->first();
+    /** @var \Drupal\layout_builder\Section $layout_section */
+    $layout_section = $layouts->getValue()['section'];
+    /** @var \Drupal\layout_builder\SectionComponent $layout_component */
+    $layout_component = $layout_section->getComponent('3a0135f7-33d4-4355-b553-3dc0e420a531');
+    $layout_component_additional = $layout_component->get('additional');
+
+    $layout_component_additional['bootstrap_styles']['block_style']['background_media']['image']['media_id'] = $media_id;
+    $layout_component->set('additional', $layout_component_additional);
+    $two_col_section->save();
+  }
+}
