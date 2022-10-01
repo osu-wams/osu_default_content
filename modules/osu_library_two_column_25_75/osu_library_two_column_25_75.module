@@ -22,7 +22,8 @@ function osu_library_two_column_25_75_modules_installed($modules, $is_syncing) {
     $media_id = $media_item->get('mid')->first()->getValue()['value'];
 
     /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $section_storage */
-    $section_storage = \Drupal::entityTypeManager()->getStorage('section_library_template');
+    $section_storage = \Drupal::entityTypeManager()
+      ->getStorage('section_library_template');
     /** @var array $two_col_section_arr */
     $two_col_section_arr = $section_storage->loadByProperties(['uuid' => 'f5f32813-2eb8-49ac-b5d6-df111babdb7c']);
     /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $two_col_section */
