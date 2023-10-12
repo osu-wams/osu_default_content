@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * The Main module file.
+ */
+
+/**
  * Implements hook_modules_installed().
  *
  * Once the Default content is imported we need to update the media_id for the
@@ -13,30 +18,6 @@
  */
 function osu_library_hero_modules_installed($modules, $is_syncing) {
   if (in_array('osu_library_hero', $modules) && !$is_syncing) {
-    /** @var \Drupal\media\MediaStorage $media_storage */
-    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
-    /** @var array $media_item_arr */
-    $media_item_arr = $media_storage->loadByProperties(['uuid' => 'c28c4077-c0ba-4f08-8ab3-a2397ff108c6']);
-    /** @var \Drupal\media\Entity\Media $media_item */
-    $media_item = reset($media_item_arr);
-    $media_id = $media_item->get('mid')->first()->getValue()['value'];
-
-    /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $section_storage */
-    $section_storage = \Drupal::entityTypeManager()
-      ->getStorage('section_library_template');
-    /** @var array $hero_section_arr */
-    $hero_section_arr = $section_storage->loadByProperties(['uuid' => '93f31c1f-c230-4449-a8cd-f5918aeb2853']);
-    /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $hero_section */
-    $hero_section = reset($hero_section_arr);
-    /** @var Drupal\layout_builder\Plugin\Field\FieldType\LayoutSectionItem $layouts */
-    $layouts = $hero_section->get('layout_section')->first();
-    /** @var \Drupal\layout_builder\Section $layout_section */
-    $layout_section = $layouts->getValue()['section'];
-    $layout_section_settings = $layout_section->getLayoutSettings();
-
-    $layout_section_settings['container_wrapper']['bootstrap_styles']['background_media']['image']['media_id'] = $media_id;
-    $layout_section->setLayoutSettings($layout_section_settings);
-    $hero_section->set('layout_section', $layout_section);
-    $hero_section->save();
+    \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
   }
 }

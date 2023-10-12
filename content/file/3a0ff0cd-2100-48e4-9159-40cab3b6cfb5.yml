@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 3a0ff0cd-2100-48e4-9159-40cab3b6cfb5
+  default_langcode: en
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: OSU_grid-patterns_plus_orange.webp
+  uri:
+    - value: 'public://2023-10/OSU_grid-patterns_plus_orange.webp'
+  filemime:
+    - value: image/webp
+  filesize:
+    - value: 33494
+  status:
+    - value: true
+  created:
+    - value: 1697134217
