@@ -2,35 +2,57 @@
 
 namespace Drupal\osu_default_content;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-
 /**
  * Service description.
  */
 class LibraryMediaUpdate {
 
   /**
-   * The entity type manager.
+   * @param string $uuidSectionLibrary
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @return void
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  protected $entityTypeManager;
-
-  /**
-   * Constructs a LibraryMediaUpdate object.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
-    $this->entityTypeManager = $entity_type_manager;
+  public static function updateSectionLibrarySectionBackground(string $uuidSectionLibrary) {
+    $section_storage = \Drupal::entityTypeManager()
+      ->getStorage('section_library_template');
+    /** @var array $section_library_items */
+    $section_library_items = $section_storage->loadByProperties(['uuid' => $uuidSectionLibrary]);
+    /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $section_library_item */
+    $section_library_item = reset($section_library_items);
+    /** @var Drupal\layout_builder\Plugin\Field\FieldType\LayoutSectionItem $layouts */
+    $layouts = $section_library_item->get('layout_section')->first();
+    /** @var \Drupal\layout_builder\Section $layout_section */
+    $layout_section = $layouts->getValue()['section'];
+    $layout_section_settings = $layout_section->getLayoutSettings();
+    $layout_section_settings['container_wrapper']['bootstrap_styles']['background_media']['image']['media_id'] = self::getMediaId();;
+    $layout_section->setLayoutSettings($layout_section_settings);
+    $section_library_item->set('layout_section', $layout_section);
+    $section_library_item->save();
   }
 
   /**
-   * Method description.
+   * Get the Media ID for our default image provided by the UUID.
+   *
+   * @return mixed
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function doSomething() {
-    // @DCG place your code here.
+  private static function getMediaId() {
+    /** @var \Drupal\media\MediaStorage $media_storage */
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    /** @var array $media_item_arr */
+    $media_item_arr = $media_storage->loadByProperties(['uuid' => '1e71419d-ddb9-4325-bb04-2490531fb300']);
+    /** @var \Drupal\media\Entity\Media $media_item */
+    $media_item = reset($media_item_arr);
+    return $media_item->get('mid')->first()->getValue()['value'];
+  }
+
+  public static function updateSectionLibraryBlockBackground(string $uuidSectionLibrary, string $uuidSectionBlock) {
   }
 
 }
