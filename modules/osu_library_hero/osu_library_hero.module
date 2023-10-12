@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * The Main module file.
+ */
+
+/**
  * Implements hook_modules_installed().
  *
  * Once the Default content is imported we need to update the media_id for the
