@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * The Main module file.
+ */
+
+/**
  * Implements hook_modules_installed().
  */
 function osu_library_three_column_cards_modules_installed($modules, $is_syncing) {
@@ -55,17 +60,17 @@ function osu_library_three_column_cards_modules_installed($modules, $is_syncing)
       /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $card_image_field */
       $card_image_field = $block_data->get('field_osu_card_image')->first();
       switch ($layout_uuid) {
-        // left block;
+        // Left block.
         case '62ecebeb-81aa-4ce0-a4b4-d4bc386e5df3';
           $card_image_field->setValue(['target_id' => $media_id_left]);
           break;
 
-        // center block;
+        // Center block.
         case 'fb449a6e-2624-4408-be6c-81b16ee88c79';
           $card_image_field->setValue(['target_id' => $media_id_center]);
           break;
 
-        // right block
+        // Right block.
         case '653326d7-6c42-4961-a6d9-2172a3694ef2';
           $card_image_field->setValue(['target_id' => $media_id_right]);
           break;
