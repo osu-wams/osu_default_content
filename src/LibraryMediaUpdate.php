@@ -18,8 +18,6 @@ class LibraryMediaUpdate {
    *   (Optional) The UUID of the Block in the Components section of the Layout
    *   Item.
    *
-   * @return void
-   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -40,7 +38,6 @@ class LibraryMediaUpdate {
     $layouts = $section_library_item->get('layout_section')->first();
     /** @var \Drupal\layout_builder\Section $layout_section */
     $layout_section = $layouts->getValue()['section'];
-    $layout_section_settings = $layout_section->getLayoutSettings();
     if (!is_null($uuidSectionBlock) && Uuid::isValid($uuidSectionBlock)) {
       $layout_component = $layout_section->getComponent($uuidSectionBlock);
       $layout_component_additional = $layout_component->get('additional');
@@ -48,6 +45,7 @@ class LibraryMediaUpdate {
       $layout_component->set('additional', $layout_component_additional);
     }
     else {
+      $layout_section_settings = $layout_section->getLayoutSettings();
       $layout_section_settings['container_wrapper']['bootstrap_styles']['background_media']['image']['media_id'] = self::getMediaId();
       $layout_section->setLayoutSettings($layout_section_settings);
       $section_library_item->set('layout_section', $layout_section);
@@ -59,6 +57,7 @@ class LibraryMediaUpdate {
    * Get the Media ID for our default image provided by the UUID.
    *
    * @return mixed
+   *   The ID of the media object
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -68,7 +67,7 @@ class LibraryMediaUpdate {
     /** @var \Drupal\media\MediaStorage $media_storage */
     $media_storage = \Drupal::entityTypeManager()->getStorage('media');
     /** @var array $media_item_arr */
-    $media_item_arr = $media_storage->loadByProperties(['uuid' => '1e71419d-ddb9-4325-bb04-2490531fb300']);
+    $media_item_arr = $media_storage->loadByProperties(['uuid' => 'ca47a269-1650-4593-8156-4d99fb97d293']);
     /** @var \Drupal\media\Entity\Media $media_item */
     $media_item = reset($media_item_arr);
     return $media_item->get('mid')->first()->getValue()['value'];
