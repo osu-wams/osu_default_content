@@ -56,7 +56,7 @@ function osu_library_three_column_cards_modules_installed($modules, $is_syncing)
     foreach ($layout_components as $layout_uuid => $section_component) {
       $block_configuration = $section_component->get('configuration');
       /** @var \Drupal\block_content\Entity\BlockContent $block_data */
-      $block_data = unserialize($block_configuration['block_serialized']);
+      $block_data = unserialize($block_configuration['block_serialized'], ['allowed_classes' => ['Drupal\block_content\Entity\BlockContent']]);
       /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $card_image_field */
       $card_image_field = $block_data->get('field_osu_card_image')->first();
       switch ($layout_uuid) {

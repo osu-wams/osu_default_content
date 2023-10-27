@@ -54,5 +54,7 @@ drush default-content:export-references media 31 --folder=/tmp/media-export
 Exporting a Section Library Template with the id of `1`
 
 ```shell
-drush default-content:export-references section_library_template 1 --folder /tmp/section_library_item
+drush default-content:export-references section_library_template 1 \ 
+--folder /tmp/section_library_item
+
 ```
