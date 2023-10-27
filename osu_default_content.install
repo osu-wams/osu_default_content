@@ -44,6 +44,5 @@ function osu_default_content_update_9001(&$sandbox) {
   $layout_component->set('configuration', $layout_component_configuration);
   $section_library_item->save();
 
-  file_get_contents('lb_hero_128_128.jpg');
   return t('Added new default image and updated existing layouts');
 }
