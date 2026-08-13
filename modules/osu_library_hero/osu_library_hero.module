@@ -17,7 +17,7 @@
  *     the media_id and save it back to the database.
  */
 function osu_library_hero_modules_installed($modules, $is_syncing) {
-  if (in_array('osu_library_hero', $modules) && !$is_syncing) {
-    \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
+  if (in_array('osu_library_hero', $modules, TRUE) && !$is_syncing) {
+    Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
   }
 }

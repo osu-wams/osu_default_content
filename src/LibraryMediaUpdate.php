@@ -24,7 +24,7 @@ class LibraryMediaUpdate {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    * @throws \Exception
    */
-  public static function updateSectionLibrarySectionBackground(string $uuidSectionLibrary, string $uuidSectionBlock = NULL): void {
+  public static function updateSectionLibrarySectionBackground(string $uuidSectionLibrary, string $uuidSectionBlock): void {
     if (!Uuid::isValid($uuidSectionLibrary)) {
       throw new \Exception('Bad UUID provided for Section Library Item.');
     }
@@ -38,7 +38,8 @@ class LibraryMediaUpdate {
     $layouts = $section_library_item->get('layout_section')->first();
     /** @var \Drupal\layout_builder\Section $layout_section */
     $layout_section = $layouts->getValue()['section'];
-    if (!is_null($uuidSectionBlock) && Uuid::isValid($uuidSectionBlock)) {
+
+    if ($uuidSectionBlock !== NULL && Uuid::isValid($uuidSectionBlock)) {
       $layout_component = $layout_section->getComponent($uuidSectionBlock);
       $layout_component_additional = $layout_component->get('additional');
       $layout_component_additional['bootstrap_styles']['block_style']['background_media']['image']['media_id'] = self::getMediaId();
@@ -56,12 +57,12 @@ class LibraryMediaUpdate {
   /**
    * Get the Media ID for our default image provided by the UUID.
    *
-   * @return mixed
-   *   The ID of the media object
-   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   *
+   * @return mixed
+   *   The ID of the media object
    */
   private static function getMediaId(): mixed {
     /** @var \Drupal\media\MediaStorage $media_storage */
@@ -70,6 +71,7 @@ class LibraryMediaUpdate {
     $media_item_arr = $media_storage->loadByProperties(['uuid' => 'ca47a269-1650-4593-8156-4d99fb97d293']);
     /** @var \Drupal\media\Entity\Media $media_item */
     $media_item = reset($media_item_arr);
+
     return $media_item->get('mid')->first()->getValue()['value'];
   }
 

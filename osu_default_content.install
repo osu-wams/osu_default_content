@@ -12,10 +12,10 @@ function osu_default_content_update_9001(&$sandbox) {
   Drupal::service('module_installer')->install([
     'osu_library_default_image',
   ]);
-  \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
-  \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('f5f32813-2eb8-49ac-b5d6-df111babdb7c', '3a0135f7-33d4-4355-b553-3dc0e420a531');
+  Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
+  Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('f5f32813-2eb8-49ac-b5d6-df111babdb7c', '3a0135f7-33d4-4355-b553-3dc0e420a531');
   // Update the 50/50 layout image.
-  $section_storage = \Drupal::entityTypeManager()
+  $section_storage = Drupal::entityTypeManager()
     ->getStorage('section_library_template');
   /** @var array $section_library_items */
   $section_library_items = $section_storage->loadByProperties(['uuid' => 'e91a5628-cb28-402e-81f8-ba3690768232']);
