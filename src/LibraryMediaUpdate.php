@@ -24,7 +24,7 @@ class LibraryMediaUpdate {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    * @throws \Exception
    */
-  public static function updateSectionLibrarySectionBackground(string $uuidSectionLibrary, string $uuidSectionBlock): void {
+  public static function updateSectionLibrarySectionBackground(string $uuidSectionLibrary, string|null $uuidSectionBlock = null): void {
     if (!Uuid::isValid($uuidSectionLibrary)) {
       throw new \Exception('Bad UUID provided for Section Library Item.');
     }
