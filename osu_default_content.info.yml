@@ -3,6 +3,6 @@ type: module
 description: 'Default content for OSU distributions'
 package: OSU
 core_version_requirement: ^10 || ^11
-version: 1.0.6
+version: 1.0.7
 dependencies:
   - default_content:default_content
